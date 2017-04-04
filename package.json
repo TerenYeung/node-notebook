@@ -1,0 +1,30 @@
+{
+  "name": "node-notebook",
+  "version": "1.0.0",
+  "description": "this is node-project of notebook",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TerenYeung/node-notebook.git"
+  },
+  "keywords": [
+    "node",
+    "notebook"
+  ],
+  "author": "terenyeung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TerenYeung/node-notebook/issues"
+  },
+  "homepage": "https://github.com/TerenYeung/node-notebook#readme",
+  "devDependencies": {
+    "lodash": "4.17.4",
+    "nodemon": "1.11.0"
+  },
+  "dependencies": {
+    "axios": "0.16.0"
+  }
+}
