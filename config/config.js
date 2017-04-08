@@ -8,5 +8,5 @@ module.exports = {
 	PORT: 8888,
 
 	//静态资源入目录
-	STATIC_PREFIX: 'public'
+	STATIC_PREFIX: 'public',
 }

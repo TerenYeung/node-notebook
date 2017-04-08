@@ -4,9 +4,10 @@
  */
 const { LIST, BLOG } = require('./api');
 // console.log(BLOG)
-module.exports = (request)=> {
+module.exports = (ctx)=> {
 
-	let { url , method, context} = request;
+	let { url ,method } = ctx.req,
+		{ reqCtx, res, resCtx } = ctx;
 
 	//request => stream => eventEmitter
 
@@ -18,14 +19,26 @@ module.exports = (request)=> {
 
 	method = method.toLowerCase();
 
-	if(method == 'get'){
-		return Promise.resolve(routes[url]);
-	}else {
+	return Promise.resolve({
+		then: (resolve, reject)=>{
 
-		let { body } = context;
+			if(url.match(/\.action$/)){
+				if(method == 'get'){
+					resCtx.body = JSON.stringify(routes[url]);
+				}else {
+					let { body } = reqCtx;
+					resCtx.body = JSON.stringify(body);
+				}
+				// res.setHeader('Content-Type', 'application/json');
+				resCtx.headers = Object.assign(resCtx.headers, {
+					'Content-Type': 'application/json'
+				})
+			}
+			resolve();
+		}
+	})
 
-		return Promise.resolve(body);
-	}
+
 
 
 

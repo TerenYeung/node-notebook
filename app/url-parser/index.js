@@ -4,25 +4,31 @@
  */
 
  // request: query + body + method
+// let context = {
+// 	req: request,
+// 	reqCtx: {},
+// 	res: response,
+// 	resCtx: {}
+// }
 
- module.exports = (request)=>{
+ module.exports = (ctx)=>{
 
- 	let { method, url, context } = request;
+ 	let { method, url, context } = ctx.req;
+ 	let { reqCtx } = ctx;
 
  	method = method.toLowerCase();
 
 	return Promise.resolve({
 		then: (resolve,reject)=>{
-			context.method = method;
-			context.query = {};
+
 			if(method == 'post'){
 				let data = '';
-				request.on('data', (chunk)=>{
+				ctx.req.on('data', (chunk)=>{
 					data +=chunk;
 					// console.log(data);
 				}).on('end',()=>{
 
-					context.body = JSON.parse(data)
+					reqCtx.body = JSON.parse(data)
 
 					resolve();
 				});

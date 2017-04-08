@@ -7,27 +7,31 @@ const fs =require('fs');
 const path = require('path');
 const { STATIC_PREFIX }= require('../../config/config');
 
-let staticServer = (request)=>{
+let staticServer = (ctx)=>{
 
-	let { url } = request
+	let { url } = ctx.req,
+		{ resCtx } = ctx;
 
 	return new Promise((resolve, reject)=>{
 
-		if(url == '/'){
-			url = '/index.html';
-		};
+		if(!url.match(/\.action$/)){
+			if(url == '/'){
+				url = '/index.html';
+			};
 
-		let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${url}`);
+			let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${url}`);
 
-		fs.readFile(_path,(err, data)=>{
+			fs.readFile(_path,(err, data)=>{
 
-			// if(err){
-			// 	reject(`NOT FOUND`);
-			// };
-
-			resolve(data);
-
-		})
+				if(err){
+					resCtx.body = `NOT FOUND`
+				};
+				resCtx.body = data;
+				resolve();
+			})
+		}else {
+			resolve();
+		}
 	})
 }
 
