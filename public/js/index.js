@@ -27,7 +27,10 @@ setTimeout(function(){
 
 	$.ajax({
 		url: '/list.action',
-		method: 'get',
+		method: 'post',
+		data: {
+			id: 123
+		},
 		success: function(arr){
 
 			let data = arr.map(function(elem){

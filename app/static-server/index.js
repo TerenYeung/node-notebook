@@ -15,9 +15,8 @@ let staticServer = (url)=>{
 		};
 
 		let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${url}`);
-		let data = null;
 
-		data = fs.readFile(_path,(err, data)=>{
+		fs.readFile(_path,(err, data)=>{
 
 			if(err){
 				reject(`NOT FOUND`);

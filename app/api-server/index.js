@@ -12,5 +12,11 @@ module.exports = url=> {
 		'/blog.action': BLOG
 	}
 
-	return Promise.resolve(routes[url]);
+	if(method == 'get'){
+		return Promise.resolve(routes[url]);
+	}else {
+		//处理post请求
+	}
+
+
 }

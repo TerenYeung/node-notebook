@@ -85,7 +85,7 @@ promise1-3: 3
 // })
 
 const p5 = new Promise((resolve,reject)=>{
-	setTimeout(resolve, 1000, 'Hello World')
+	setTimeout(reject, 1000, 'Hello World')
 })
 console.log(p5)
 
