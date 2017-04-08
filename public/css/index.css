@@ -1,6 +1,12 @@
-body {
-	color: red;
+h2 {
+	color: #aaa;
 }
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
 img {
 	width: 300px;
 	height: 200px;
