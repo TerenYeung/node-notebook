@@ -4,19 +4,29 @@
  */
 const { LIST, BLOG } = require('./api');
 // console.log(BLOG)
-module.exports = url=> {
+module.exports = (request)=> {
+
+	let { url , method, context} = request;
+
+	//request => stream => eventEmitter
 
 	//code logic
 	let routes = {
 		'/list.action': LIST,
 		'/blog.action': BLOG
-	}
+	};
+
+	method = method.toLowerCase();
 
 	if(method == 'get'){
 		return Promise.resolve(routes[url]);
 	}else {
-		//处理post请求
+
+		let { body } = context;
+
+		return Promise.resolve(body);
 	}
+
 
 
 }

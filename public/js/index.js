@@ -28,9 +28,7 @@ setTimeout(function(){
 	$.ajax({
 		url: '/list.action',
 		method: 'post',
-		data: {
-			id: 123
-		},
+		data: JSON.stringify([{'name':'kobe'}]),
 		success: function(arr){
 
 			let data = arr.map(function(elem){
