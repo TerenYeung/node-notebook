@@ -1,24 +1,26 @@
 const fs = require('fs');
+const {STATIC_PREFIX} = require('../config/config');
+const staticServer = require('./static-server');
+
 class App {
+
 	constructor(){
 
 	}
+
 	use(){}
+
 	initServer(){
 		return (request,response)=>{
-			//获取request对象的url和method
+
 			let { url , method } = request;
-			//如果url以.action结尾，认为它是ajax;
-			let staticFunc = (url)=>{
-				if(url == '/'){
-					url = '/index.html';
-				}
-				fs.readFile(`./public/${url}`,'utf8',(err,data)=>{
-					response.end(data);
-				})
-			}
-			staticFunc(url);
+			let body = '';
+
+			body = staticServer(url);
+
+			response.end(body);
 		}
 	}
 }
+
 module.exports = App;
