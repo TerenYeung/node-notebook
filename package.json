@@ -4,7 +4,8 @@
   "description": "this is node-project of notebook",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --inspect index.js"
+    "start": "nodemon --inspect index.js",
+    "test": "node ./demo/promise"
   },
   "repository": {
     "type": "git",

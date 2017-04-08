@@ -19,17 +19,25 @@ class App {
 			let headers = {}, body = null;
 			//对于不同的请求方式——script标签请求和ajax请求，分别处理
 			if(url.match(/.action$/)) {
-				let json = apiServer(url);
-				headers = {'Content-Type': 'application/json'};
-				body = JSON.stringify(json);
-			}else {
-				body = staticServer(url);
-			};
-			console.log(headers)
-			headers = Object.assign(headers, {'X-powered-by': 'Node.js'});
-			response.writeHead(200, 'OK', headers);
-			response.end(body);
 
+				apiServer(url).then(json=>{
+					headers = {'Content-Type': 'application/json'};
+					body = JSON.stringify(json);
+					headers = Object.assign(headers, {'X-powered-by': 'Node.js'});
+
+					response.writeHead(200, 'OK', headers);
+					response.end(body);
+					})
+			}else {
+
+				staticServer(url).then(body=>{
+					headers = Object.assign(headers, {'X-powered-by': 'Node.js'});
+
+					response.writeHead(200, 'OK', headers);
+					response.end(body);
+
+				});
+			};
 		}
 	}
 }

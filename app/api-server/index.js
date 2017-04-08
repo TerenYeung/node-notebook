@@ -12,5 +12,5 @@ module.exports = url=> {
 		'/blog.action': BLOG
 	}
 
-	return routes[url];
+	return Promise.resolve(routes[url]);
 }

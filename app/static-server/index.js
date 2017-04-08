@@ -8,20 +8,25 @@ const { STATIC_PREFIX }= require('../../config/config');
 
 let staticServer = (url)=>{
 
-	if(url == '/'){
-		url = '/index.html';
-	}
+	return new Promise((resolve, reject)=>{
 
-	let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${url}`);
-	let resource = null;
+		if(url == '/'){
+			url = '/index.html';
+		};
 
-	try{
-		resource = fs.readFileSync(_path);
-	}catch(err){
-		resource = 'NOT FOUND';
-	}
+		let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${url}`);
+		let data = null;
 
-	return resource;
+		data = fs.readFile(_path,(err, data)=>{
+
+			if(err){
+				reject(`NOT FOUND`);
+			};
+
+			resolve(data);
+
+		})
+	})
 }
 
 module.exports = staticServer;
