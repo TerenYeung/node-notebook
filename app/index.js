@@ -15,19 +15,20 @@ class App {
 		return (request,response)=>{
 
 			let { url , method } = request;
-			let data = null;
 
+			let headers = {}, body = null;
 			//对于不同的请求方式——script标签请求和ajax请求，分别处理
 			if(url.match(/.action$/)) {
-				data = apiServer(url);
-				response.writeHead(200, 'resolve ok', {'Content-Type': 'application/json'});
-				response.end(JSON.stringify(data));
+				let json = apiServer(url);
+				headers = {'Content-Type': 'application/json'};
+				body = JSON.stringify(json);
 			}else {
-				data = staticServer(url);
-				response.writeHead(200, 'resolve ok', {'X-powered-by': 'Node.js'});
-				response.end(data);
+				body = staticServer(url);
 			};
-
+			console.log(headers)
+			headers = Object.assign(headers, {'X-powered-by': 'Node.js'});
+			response.writeHead(200, 'OK', headers);
+			response.end(body);
 
 		}
 	}
