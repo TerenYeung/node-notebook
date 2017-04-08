@@ -8,13 +8,15 @@ const App = require('./app');
 const server = new App();
 
 //中间件
-const staticServer = require('./static-server');
-const apiServer = require('./api-server');
-const urlParser = require('./url-parser');
+const staticServer = require('./app/static-server');
+const apiServer = require('./app/api-server');
+const urlParser = require('./app/url-parser');
 
 server.use(urlParser);
+// console.dir(urlParser);
 server.use(apiServer);
 server.use(staticServer);
+// console.dir(server.middlewareArr[2]())
 
 //启动app
 http.createServer(server.initServer()).listen(PORT,()=>{

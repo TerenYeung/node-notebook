@@ -1,13 +1,19 @@
 //流式中间件
 //请求 => url-parser => api-server => static-server
 
-const fs = require('fs');
+//优点
+//1. 每一块中间件只需要关注修改context对象即可，彼此独立；
+//2. 设计use和composeMiddleware这两个api用来创建Promise链；
+//3. 开发者只需要关注中间件开发；
+
 const { STATIC_PREFIX } = require('../config/config');
+const staticServer = require('./static-server');
 
 class App {
 
 	constructor(){
 		this.middlewareArr = [];
+		this.middlewareChain = Promise.resolve();
 	}
 
 	use(middleware){
@@ -15,21 +21,30 @@ class App {
 	}
 
 	//创建Promise链条
-	composeMiddleWare(){}
+	composeMiddleware(context){
+		//根据中间件数组，创建Promise链条
+		let { middlewareArr } = this;
+		for(let middleware of middlewareArr){
+			this.middlewareChain = this.middlewareChain.then(()=>{
+				return middleware(context)
+			})
+		}
+		return this.middlewareChain
+	}
 
 	initServer(){
 		return (request,response)=>{
 
-			let { url, method } = request;
+			// let { url, method } = request;
 
-			// let headers = {}, body = null;
-			//对于不同的请求方式——script标签请求和ajax请求，分别处理
+			// // let headers = {}, body = null;
+			// //对于不同的请求方式——script标签请求和ajax请求，分别处理
 
-			request.context = {
-				body: '',
-				query: {},
-				method: 'get'
-			};
+			// request.context = {
+			// 	body: '',
+			// 	query: {},
+			// 	method: 'get'
+			// };
 
 			//因为我们的所有中间件都是处理request和response
 			//所以可以把所有数据全部挂载在context对象上，
@@ -49,18 +64,13 @@ class App {
 			}
 
 
-			urlParser(context).then(()=>{
-				return apiServer(context);
-			}).then(()=>{
-				return staticServer(context)
-			}).then(()=>{
-
-				let powered = {'X-powered-by': 'Node.js'};
-				let { body, headers} = context.resCtx;
-				//writeHeader默认hi覆盖setHeader的相同值；
-				response.writeHead(200, 'OK', Object.assign(headers, powered));
-				response.end(body);
-			})
+			this.composeMiddleware(context).then(()=>{
+					let powered = {'X-powered-by': 'Node.js'};
+					let { body, headers} = context.resCtx;
+					//writeHeader默认hi覆盖setHeader的相同值；
+					response.writeHead(200, 'OK', Object.assign(headers, powered));
+					response.end(body);
+				})
 		}
 	}
 }
