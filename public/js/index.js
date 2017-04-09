@@ -1,3 +1,5 @@
+require('../css/index.css');
+require('../img/totoro.jpeg');
 
 setTimeout(function(){
 
