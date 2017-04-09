@@ -6,6 +6,7 @@
 const fs =require('fs');
 const path = require('path');
 const { STATIC_PREFIX }= require('../../config/config');
+const mime = require('mime');
 
 let staticServer = (ctx)=>{
 
@@ -15,12 +16,13 @@ let staticServer = (ctx)=>{
 	return new Promise((resolve, reject)=>{
 
 		if(!url.match(/\.action$/)){
-			if(url == '/'){
-				url = '/index.html';
-			};
 
 			let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${url}`);
 
+			resCtx.headers = Object.assign(resCtx.headers,{
+				'Content-Type': mime.lookup(_path)
+			})
+			// console.log(typeof mime.lookup(_path))
 			fs.readFile(_path,(err, data)=>{
 
 				if(err){
