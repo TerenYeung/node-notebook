@@ -27,8 +27,11 @@
 		<li class="nav__item">
 			<a href="/list" class="nav__text">博客列表</a>
 		</li>
-		<li class="nav__item">
-			<a href="/write" class="nav__text">写作</a>
-		</li>
+		<% if(hasUser){ %>
+			<li class="nav__item">
+				<a href="/write" class="nav__text">写作</a>
+			</li>
+		<% } %>
+
 	</ul>
 

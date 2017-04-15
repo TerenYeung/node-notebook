@@ -35,8 +35,10 @@ const urlrewriteMap = require('./urlrewrite');
 	 					filename: layoutPath
 	 				});
 
+	 				console.log(resCtx.hasUser)
 	 				let html = render({
-	 					templateName: ejsName
+	 					templateName: ejsName,
+	 					hasUser: resCtx.hasUser,
 	 				})
 
 	  				resCtx.headers = Object.assign(resCtx.headers,{

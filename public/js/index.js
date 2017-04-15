@@ -1,4 +1,4 @@
-require('../css/index.css');
+require('../css/index.scss');
 
 setTimeout(function(){
 

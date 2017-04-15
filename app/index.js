@@ -58,6 +58,7 @@ class App {
 				},
 				res: response,
 				resCtx: {
+					hasUser: false, //标识用户
 					statusCode: 200,
 					statusMsg: 'OK',
 					headers: {},//响应头
