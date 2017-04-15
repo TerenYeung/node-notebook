@@ -58,6 +58,8 @@ class App {
 				},
 				res: response,
 				resCtx: {
+					statusCode: 200,
+					statusMsg: 'OK',
 					headers: {},//响应头
 					body: ''//响应体
 				}
@@ -66,9 +68,11 @@ class App {
 
 			this.composeMiddleware(context).then(()=>{
 					let powered = {'X-powered-by': 'Node.js'};
-					let { body, headers} = context.resCtx;
-					//writeHeader默认hi覆盖setHeader的相同值；
-					response.writeHead(200, 'OK', Object.assign(headers, powered));
+					let { body, headers, statusCode, statusMsg } = context.resCtx;
+					//writeHeader默认hi覆盖setHeader的相同值;
+
+
+					response.writeHead(statusCode, statusMsg, Object.assign(headers, powered));
 					response.end(body);
 				})
 		}

@@ -29,7 +29,7 @@ const html2 = `
 		<%= name %>
 
 	<% } %>
-	<%- include('test') %>
+	<%- include('./test') %>
 `
 const result = ejs.compile(html2,{
 	filename: path.resolve(__dirname,'./demo'),
