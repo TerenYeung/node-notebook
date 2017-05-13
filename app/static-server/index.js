@@ -10,14 +10,14 @@ const mime = require('mime');
 
 let staticServer = (ctx)=>{
 
-	let { url } = ctx.req,
+	let { pathname } = ctx.reqCtx,
 		{ resCtx } = ctx;
 
 	return new Promise((resolve, reject)=>{
 
-		if(!url.match(/\.action$/)){
+		if(!pathname.match(/\.action$/)){
 
-			let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${url}`);
+			let _path = path.resolve(process.cwd(),`./${STATIC_PREFIX}${pathname}`);
 
 			resCtx.headers = Object.assign(resCtx.headers,{
 				'Content-Type': mime.lookup(_path)

@@ -1,0 +1,3 @@
+[submodule "publicc"]
+	path = publicc
+	url = git@github.com:slashhuang/pure-node-notebook-fe.git
