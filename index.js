@@ -21,6 +21,16 @@ server.use(staticServer);
 server.use(viewServer);
 // console.dir(server.middlewareArr[2]())
 
+// 引入mongoose
+const mongoose = require('mongoose');
+// Use native promises
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/lsblog')
+mongoose.connection.on('error',()=>{console.log('error for db');})
+				.once('open', ()=> {console.log("we're connected to mongodb!")})
+
+
+
 //启动app
 http.createServer(server.initServer()).listen(PORT,()=>{
 	console.log(`server listening on port ${PORT}`)

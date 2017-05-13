@@ -19,7 +19,7 @@ module.exports = (ctx) => {
     resCtx
   } = ctx;
 
-  let cookieObj = cookie_parser.parse(cookie);
+  let cookieObj = cookie_parser.parse(cookie || '');
 
   return Promise.resolve({
     then: (resolve, reject) => {
