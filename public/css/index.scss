@@ -1,12 +1,6 @@
 @import "reset";
-@import "./common.blocks/**/*.scss";
-// @import "./desktop.blocks/**/*.scss";
+
 body {
-    background: #ccc;
-    color: red;
+	background: #ccc;
 }
 
-img {
-    width: 200px;
-    height: 140px;
-}
