@@ -1,3 +1,8 @@
 <%- include('./module/header') %>
-<%- include(templateName) %>
+  <div class="main-module">
+    <!-- react逻辑 -->
+    <div class="mod-<%- viewName %>"></div>
+  </div>
 <%- include('./module/footer')%>
+<script src="/dist/common.js"></script>
+<script src="/dist/<%- viewName %>.js"></script>

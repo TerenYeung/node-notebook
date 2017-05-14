@@ -50,6 +50,7 @@ class App {
 			//所以可以把所有数据全部挂载在context对象上，
 			//数据传递只需要传context就行了
 			//用于中间件传递的request和response对象的封装
+			let { url,method } = request;
 			let context = {
 				req: request,
 				reqCtx: {

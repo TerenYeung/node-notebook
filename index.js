@@ -13,8 +13,8 @@ const staticServer = require('./app/static-server');
 const apiServer = require('./app/api-server');
 const urlParser = require('./app/url-parser');
 const viewServer = require('./app/view-server');
-server.use(cookieParser);
 server.use(urlParser);
+server.use(cookieParser);
 // console.dir(urlParser);
 server.use(apiServer);
 server.use(staticServer);
@@ -25,13 +25,13 @@ server.use(viewServer);
 const mongoose = require('mongoose');
 // Use native promises
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/lsblog')
+mongoose.connect('mongodb://localhost/blog')
 mongoose.connection.on('error',()=>{console.log('error for db');})
-				.once('open', ()=> {console.log("we're connected to mongodb!")})
+				.once('open', ()=> {console.log("\n we're connected to mongodb!")})
 
 
 
 //启动app
 http.createServer(server.initServer()).listen(PORT,()=>{
-	console.log(`server listening on port ${PORT}`)
+	console.log(`\n server listening on port ${PORT}`)
 });

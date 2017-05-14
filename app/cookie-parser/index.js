@@ -18,7 +18,6 @@ module.exports = (ctx) => {
     res,
     resCtx
   } = ctx;
-
   let cookieObj = cookie_parser.parse(cookie || '');
 
   return Promise.resolve({
@@ -32,14 +31,12 @@ module.exports = (ctx) => {
         resCtx.hasUser = true;
         res.setHeader('Set-Cookie', cookieStr(3600));
       }
-
       //登录
       //如果用户在白名单，则授权写作权限
       if (whiteNameList.indexOf(pathname) > -1) {
         res.setHeader('Set-Cookie', cookieStr(3600));
       }
-
-      //登出
+     //登出
       if (pathname == '/logout') {
         res.setHeader('Set-Cookie', cookieStr(0));
       }

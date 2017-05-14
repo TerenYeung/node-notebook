@@ -6,21 +6,29 @@
 
 const { Schema } = require('mongoose');
 
-// create blog schema
-exports.blogSchema = new Schema({
-  title:  String,
-  content: String,    // html
-  rawContent: String, // markdown
-  category: String,   // 博客分类
-  date: { type: Date, default: ()=>{
-    return new Date().toocaleString();
-    }
-  }
-});
-
 // create category schema
-exports.categorySchema = new Schema({
+const categorySchema = new Schema({
   name: String,
   id: String
 })
+
+// create blog schema
+const blogSchema = new Schema({
+  title:  String,
+  content: String,    // html
+  rawContent: String, // markdown
+  category: categorySchema,   // 博客分类
+  date: String
+}, {
+  // _id为false相当于告诉mongoose不要操作_id
+  _id: false,
+  strict: false
+})
+
+
+
+module.exports = {
+  blogSchema,
+  categorySchema
+}
 
